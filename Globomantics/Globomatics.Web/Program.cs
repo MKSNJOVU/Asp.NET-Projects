@@ -33,6 +33,11 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+// app.MapControllerRoute(
+//     name: "ticketDetailsRoute",
+//     defaults: new {action = "TicketDetails", controller = "Home"},
+//     pattern: "/details/{productid}/{slug?}");
+
 using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<GlobomanticsContext>();

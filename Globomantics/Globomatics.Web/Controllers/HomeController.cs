@@ -9,20 +9,26 @@ namespace Globomatics.Web.Controllers;
 public class HomeController : Controller
 {
     private readonly IRepository<Product> _productRepository;
+    private readonly ILogger<HomeController> _logger;
 
-    public HomeController(IRepository<Product> productRepository)
+    public HomeController(IRepository<Product> productRepository, ILogger<HomeController> logger)
     {
         _productRepository = productRepository;
+        _logger = logger;
     }
     public IActionResult Index()
     {
         var products = _productRepository.All();
+        _logger.LogInformation($"Loaded {products.Count()} products");
         return View(products);
     }
 
-    public IActionResult TicketDetails(Guid productId, string slug)
+    [Route("/details/{productId:guid}/{slug?}")]
+    public IActionResult TicketDetails(Guid productId, string? slug)
     {
-        throw new NotImplementedException();
+        var product = _productRepository.Get(productId);
+
+        return View(product);
     }
 
     public IActionResult Privacy()
