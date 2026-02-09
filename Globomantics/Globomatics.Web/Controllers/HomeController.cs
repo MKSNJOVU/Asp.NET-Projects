@@ -23,8 +23,8 @@ public class HomeController : Controller
         return View(products);
     }
 
-    [Route("/details/{productId:guid}/{slug?}")]
-    public IActionResult TicketDetails(Guid productId, string? slug)
+    [Route("/details/{productId:guid}/{slug:validateSlug}")]
+    public IActionResult TicketDetails(Guid productId, string slug)
     {
         var product = _productRepository.Get(productId);
 
